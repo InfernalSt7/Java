@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="tipo")
@@ -16,8 +17,19 @@ public class Tipos {
     @Column(name="id_tipo")
     private int id;
     
+	@NotEmpty(message="El nombre es obligatorio")
     @Column(name="nombre")
     private String nombre;
+
+	public Tipos(int id, String nombre) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+	}
+
+	public Tipos() {
+		super();
+	}
 
 	public int getId() {
 		return id;
@@ -35,15 +47,7 @@ public class Tipos {
 		this.nombre = nombre;
 	}
 
-	public Tipos(int id, String nombre) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-	}
-
-	public Tipos() {
-		super();
-	}
+	
    
 
 	

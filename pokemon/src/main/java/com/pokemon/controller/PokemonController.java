@@ -25,13 +25,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pokemon.component.PDF;
 import com.pokemon.constantes.Constantes;
 import com.pokemon.entity.Pokemon;
-import com.pokemon.model.MovimientoModel;
 import com.pokemon.model.PokemonModel;
-import com.pokemon.model.TipoModel;
 import com.pokemon.repository.PokemonJpaRepository;
 import com.pokemon.service.MovimientoService;
 import com.pokemon.service.PokemonService;
 import com.pokemon.service.TipoService;
+import com.pokemon.validator.PokemonValidator;
 
 @Controller
 @RequestMapping("/pokemon")
@@ -42,6 +41,8 @@ public class PokemonController {
     @Autowired
     @Qualifier("pokemonServiceImpl")
     private PokemonService pokemonService;
+    
+    private PokemonValidator validator=new PokemonValidator();
     
     @Autowired
     @Qualifier("tipoServiceImpl")
@@ -66,10 +67,12 @@ public class PokemonController {
     @PostMapping("/addPokemon")
    	public String addPokemon(@ModelAttribute("file") MultipartFile img, @Valid @ModelAttribute("pokemon") PokemonModel pokemonModel, BindingResult result,
    			RedirectAttributes flash, Model model) {
-   			
-   			if (result.hasErrors()) {
-   				return "redirect:/pokemon/listPokemons";
-   			}else {
+    	
+    		this.validator.validate(pokemonModel, result);
+    		if (result.hasErrors()) {
+    			model.addAttribute("pokemon", pokemonService.listAllPokemons());
+    			return "redirect:/pokemon/listPokemons";
+    		}else {
    				if(!img.isEmpty()) {
    					Path directory=Paths.get(".\\src\\main\\resources\\static\\images");
    					String ruta=directory.toFile().getAbsolutePath();

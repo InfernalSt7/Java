@@ -45,6 +45,7 @@ public class MovimientoController {
 	
 	@PostMapping("/addMovimiento")
 	public String addMovimiento(@ModelAttribute("movimiento") MovimientoModel movimientoModel) {
+		
 		movimientoService.addMovimiento(movimientoModel);
 		return "redirect:/movimiento/listMovimientos";
 		

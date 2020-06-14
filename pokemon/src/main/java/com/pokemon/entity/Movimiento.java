@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="movimientos")
@@ -17,21 +19,35 @@ public class Movimiento{
     @Column(name="id_movimiento")
     private int id;
     
+	@NotEmpty(message="El campo nombre es obligatorio")
     @Column(name="nombre")
     private String nombre;
     
+	@NotNull
 	@Column(name="categoria")
 	private String categoria;
     
+	@NotNull
     @Column(name="descripcion")
     private String descripcion;
     
+	@NotNull
     @Column(name="potencia")
     private int potencia;
     
     @Column(name="precission")
     private int precission;
-    
+
+	public Movimiento(int id, @NotEmpty(message = "El campo nombre es obligatorio") String nombre,
+			@NotNull String categoria, @NotNull String descripcion, @NotNull int potencia, int precission) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.categoria = categoria;
+		this.descripcion = descripcion;
+		this.potencia = potencia;
+		this.precission = precission;
+	}
 
 	public int getId() {
 		return id;
@@ -81,20 +97,12 @@ public class Movimiento{
 		this.precission = precission;
 	}
 
-	public Movimiento(int id, String nombre, String categoria, String descripcion, int potencia, int precission) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.categoria = categoria;
-		this.descripcion = descripcion;
-		this.potencia = potencia;
-		this.precission = precission;
-	}
-
 	public Movimiento() {
 		super();
 	}
+    
 
+	
 	
 	
     
