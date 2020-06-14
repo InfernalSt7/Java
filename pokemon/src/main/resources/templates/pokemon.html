@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<link rel="stylesheet" href="/static/css/tabla.css" th:href="@{/css/tabla.css}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/css/perfil.css" th:href="@{/css/perfil.css}">
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_ENTRENADOR') or hasRole('ROLE_INVITADO')"  th:href="@{/perfil}" class="w3-bar-item w3-button w3-padding-large">PERFIL</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EQUIPO')"  th:href="@{/vercompeticion}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">COMPETICIONES</a>
+    <a th:href="@{equipo/listEquipos}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">EQUIPOS</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_ENTRENADOR') or hasRole('ROLE_INVITADO')"  th:href="@{/pokedex}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">POKEDEX</a>
+    <form th:action="@{/login?logout}">
+    	<a class="w3-padding-large w3-hide-small w3-right"><button>DESCONECTAR</button></a>
+    </form>
+    
+  </div>
+</div>
+
+<!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+  <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_EQUIPO')" th:href="@{/vercompeticion}" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">COMPETICIONES</a>
+  <a th:href="@{/equipo/listEquipos}" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">EQUIPOS</a>
+  <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_ENTRENADOR') or hasRole('ROLE_INVITADO')" th:href="@{/pokedex}" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">POKEDEX</a>
+  <form th:action="@{/login?logout}">
+    	<a class="w3-bar-item w3-button w3-padding-large"><button>DESCONECTAR</button></a>
+    </form>
+</div>
+
+	<div class="table-title">
+		<h3>Data Table</h3>
+	</div>
+	<form th:action="@{/pokemon/create}" method="get">
+  		<input type="submit" class="btn btn-outline-success btn-lg btn-block" value="Añadir"/>
+	</form>
+	<table class="table-fill">
+		<thead>
+			<tr>
+				<th class="text-left">ID</th>
+				<th class="text-left">Imagen</th>
+				<th class="text-left">Nombre</th>
+				<th class="text-left">Ataque</th>
+				<th class="text-left">Defensa</th>
+				<!--  <th class="text-left">Tipos</th>
+				<th class="text-left">Movimiento</th> -->
+				<th class="text-left">Acciones</th>
+			</tr>
+		</thead>
+		<tbody class="table-hover">
+			<tr th:each="poke: ${pokemons}">
+				<td th:text="${poke.id}"></td>
+				<td><img th:src="${poke.foto}" style="width:40px; heigth:40px" class="avatar"/></td>
+				<td th:text="${poke.nombre}"></td>
+        		<td th:text="${poke.ataque}"></td>
+        		<td th:text="${poke.defensa}"></td>
+        		<!--  <td th:text="${poke.tipo.nombre}"></td>
+        		<td th:text="${poke.movimiento.nombre}"></td> -->
+		      <td>
+		          <a class="btn btn-default btn-outline-dark" th:href="@{/pokemon/edit(id=${poke.id})}"> Editar</a>
+		          <form action="#"  th:action="@{/pokemon/delete(id=${poke.id})}" method="post">
+						<input class="btn btn-default btn-outline-danger" type="submit" value="Delete">
+				  </form>
+		        </td>
+			</tr>
+		</tbody>
+	</table>
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+  <i class="fa fa-facebook-official w3-hover-opacity"></i>
+  <i class="fa fa-instagram w3-hover-opacity"></i>
+  <i class="fa fa-snapchat w3-hover-opacity"></i>
+  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+  <i class="fa fa-twitter w3-hover-opacity"></i>
+  <i class="fa fa-linkedin w3-hover-opacity"></i>
+  <p class="w3-medium">Web creada por Ernesto Calvache Rodríguez</p>
+</footer>
+
+<script>
+// Automatic Slideshow - change image every 4 seconds
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 4000);    
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+// When the user clicks anywhere outside of the modal, close it
+var modal = document.getElementById('ticketModal');
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>

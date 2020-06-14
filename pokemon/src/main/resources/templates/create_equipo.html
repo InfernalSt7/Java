@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<link rel="stylesheet" href="/static/css/tabla.css" th:href="@{/css/tabla.css}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/css/perfil.css" th:href="@{/css/perfil.css}">
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+<body>
+
+	<div> Añadir Pokémon</div>
+	<form class="form-group" action="#" th:action="@{/equipo/addEquipo}" th:object="${equipo}" method="post">
+		<!--  <p>Imagen: <input class="form-control" type="text" th:field="*{imagen}" /> </p>-->
+		<p>Nombre: <input class="form-control" type="text" th:field="*{nombre}" /> </p>
+		<p> Descripcion: <input class="form-control" type="text" th:field="*{descripcion}" /></p>
+		<p>Nombre del Pokemon:</p>
+		<select class="datos" name="equipo" id="equipo">
+			<option th:each="poke : ${pokemons}" th:text="${poke.nombre}" th:value="${poke.id}"></option>
+		</select>
+		<p> <input class="form-control" type="submit" value="submit"> </p>
+	</form>
+</body>
+</html>

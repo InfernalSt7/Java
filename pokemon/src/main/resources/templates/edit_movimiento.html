@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<link rel="stylesheet" href="/static/css/tabla.css" th:href="@{/css/tabla.css}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+<body>
+
+	<div> Editar Movimiento</div>
+	<form class="form-group" action="#" th:action="@{/movimiento/addMovimiento}" th:object="${movimiento}" method="post" enctype="multipart/form-data">
+		<input type="hidden" th:field="*{id}"/>
+		<!--  <p>Imagen: <input class="form-control" type="text" th:field="*{imagen}" /> </p>-->
+		<p>Nombre: <input class="form-control" type="text" th:field="*{nombre}" th:value="${nombre}"/> </p>
+		<p> Descripción: <input class="form-control" type="text" th:field="*{descripcion}" th:value="${descripcion}" /></p>
+		<p> Categoría: <input class="form-control" type="text" th:field="*{categoria}" th:value="${categoria}"/></p>
+		<p> Potencia: <input class="form-control" type="text" th:field="*{potencia}" th:value="${potencia}"/></p>
+		<p> Precisión: <input class="form-control" type="text" th:field="*{precission}" th:value="${precission}"/></p>
+		<p> <input class="form-control" type="submit" value="submit"> </p>
+	</form>
+</body>
+</html>

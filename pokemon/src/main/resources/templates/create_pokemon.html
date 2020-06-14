@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<link rel="stylesheet" href="/static/css/tabla.css" th:href="@{/css/tabla.css}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+<body>
+
+	<div> Añadir Pokémon</div>
+	<form class="form-group" action="#" th:action="@{/pokemon/addPokemon}" th:object="${pokemon}" method="post" enctype="multipart/form-data">
+		<p>Imagen: <input class="form-control" type="file" name="img"/> </p>
+		<p>Nombre: <input class="form-control" type="text" th:field="*{nombre}" /> </p>
+		<h4 class="errores" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre pokémon error</h4>
+		<p> Ataque: <input class="form-control" type="text" th:field="*{ataque}" /></p>
+		<p> Defensa: <input class="form-control" type="text" th:field="*{defensa}" /></p>
+		<!--  <p> Tipos:
+		<select class="datos" id="tip" name="tip">
+			<option th:each= "tipo: ${tipos}" th:value="${tipo.id}" th:text="${tipo.nombre}"></option>
+		</select>
+		</p>
+		<p> Movimientos:
+		<select class="datos" id="move" name="move">
+			<option th:each= "movimiento: ${movimientos}" th:value="${movimiento.id}" th:text="${movimiento.nombre}"></option>
+		</select>
+		</p> -->
+		<p> <input class="form-control" type="submit" value="submit"> </p>
+	</form>
+</body>
+</html>

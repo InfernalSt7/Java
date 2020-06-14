@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<link rel="stylesheet" href="/static/css/tabla.css" th:href="@{/css/tabla.css}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+<body>
+
+	<div> Añadir Movimiento</div>
+	<form class="form-group" action="#" th:action="@{/movimiento/addMovimiento}" th:object="${movimiento}" method="post">
+		<!--  <p>Imagen: <input class="form-control" type="text" th:field="*{imagen}" /> </p>-->
+		<p>Nombre: <input class="form-control" type="text" th:field="*{nombre}" /> </p>
+		<h4 class="errores" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Nombre movimiento error</h4>
+		<p> Descripción: <input class="form-control" type="text" th:field="*{descripcion}" /></p>
+		<h4 class="errores" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Nombre descripcion error</h4>
+		<p> Categoría: <input class="form-control" type="text" th:field="*{categoria}" /></p>
+		<h4 class="errores" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}">Nombre categoría error</h4>
+		<p> Potencia: <input class="form-control" type="text" th:field="*{potencia}" /></p>
+		<p> Precisión: <input class="form-control" type="text" th:field="*{precission}" /></p>
+		<p> <input class="form-control" type="submit" value="submit"> </p>
+	</form>
+</body>
+</html>
